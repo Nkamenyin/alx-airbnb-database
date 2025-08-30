@@ -14,7 +14,8 @@ SELECT properties.id AS property_id,
        properties.name AS property_name,
        reviews.review_text
 FROM properties
-LEFT JOIN reviews ON properties.id = reviews.property_id; 
+LEFT JOIN reviews ON properties.id = reviews.property_id 
+ORDER BY properties.id;
 
 
 -- Using full outer joins
