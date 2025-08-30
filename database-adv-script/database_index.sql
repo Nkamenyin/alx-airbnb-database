@@ -1,3 +1,14 @@
+-- Measure performance BEFORE adding indexes
+EXPLAIN ANALYZE
+SELECT * FROM User WHERE email = 'test@example.com';
+
+EXPLAIN ANALYZE
+SELECT * FROM Booking WHERE user_id = 123;
+
+EXPLAIN ANALYZE
+SELECT * FROM Property WHERE city = 'New York';
+
+
 -- Indexes for User table
 CREATE INDEX idx_user_email ON User(email);
 CREATE INDEX idx_user_username ON User(username);
@@ -18,3 +29,15 @@ CREATE INDEX idx_property_city ON Property(city);
 CREATE INDEX idx_property_country ON Property(country);
 CREATE INDEX idx_property_price_per_night ON Property(price_per_night);
 CREATE INDEX idx_property_created_at ON Property(created_at);
+
+
+-- Measure performance AFTER adding indexes
+EXPLAIN ANALYZE
+SELECT * FROM User WHERE email = 'test@example.com';
+
+EXPLAIN ANALYZE
+SELECT * FROM Booking WHERE user_id = 123;
+
+EXPLAIN ANALYZE
+SELECT * FROM Property WHERE city = 'New York';
+
