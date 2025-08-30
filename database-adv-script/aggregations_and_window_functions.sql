@@ -10,8 +10,13 @@ GROUP BY user_id;
 -- Using window function (ROW_NUMBER, RANK) to rank properties based on bookings
 
 SELECT 
-    property_id,
-    COUNT(*) AS total_bookings,
-    RANK() OVER (ORDER BY COUNT(*) DESC) AS booking_rank
-FROM bookings
-GROUP BY property_id;
+    properties.id AS property_id,
+    properties.name AS property_name,
+    COUNT(bookings.id) AS total_bookings,
+    ROW_NUMBER() OVER (ORDER BY COUNT(bookings.id) DESC) AS row_number_rank,
+    RANK() OVER (ORDER BY COUNT(bookings.id) DESC) AS rank_with_ties
+FROM properties properties
+LEFT JOIN bookings 
+    ON properties.id = bookings.property_id
+GROUP BY properties.id, properties.name
+ORDER BY total_bookings DESC;
