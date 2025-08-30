@@ -1,6 +1,7 @@
 -- Query to retrieve all bookings with user, property, and payment details
 
-SELECT 
+EXPLAIN
+SELECT
     b.booking_id,
     b.booking_date,
     b.check_in_date,
@@ -20,5 +21,7 @@ SELECT
 FROM Booking b
 JOIN User u ON b.user_id = u.user_id
 JOIN Property p ON b.property_id = p.property_id
-LEFT JOIN Payment pay ON b.booking_id = pay.booking_id;
-
+LEFT JOIN Payment pay ON b.booking_id = pay.booking_id
+WHERE b.status = 'confirmed'
+  AND p.city = 'New York'
+ORDER BY b.booking_date DESC;
